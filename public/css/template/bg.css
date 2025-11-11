@@ -8,7 +8,10 @@
 .eservice-box,
 .notice-board,
 .activity-box,
-.Press-release {
+.Press-release,
+.public-service,
+.Announcement,
+.box-vote {
     position: relative;
     /* overflow: hidden; */
     margin-top: 0;
@@ -19,8 +22,11 @@
 .box-video::before,
 .eservice-box::before,
 .notice-board::before,
-.activity-box::before ,
-.Press-release::before{
+.activity-box::before,
+.Press-release::before,
+.public-service::before,
+.Announcement::before,
+.box-vote::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -56,6 +62,22 @@
 .activity-box::before {
     background-image: url("/img/background/06.png");
 }
+
 .Press-release::before {
     background-image: url("/img/background/07.png");
+}
+
+.public-service::before {
+    background-image: url("/img/background/08.png");
+    z-index: 1;
+}
+
+.Announcement::before {
+    background-image: url("/img/background/09.png");
+    margin-top: -2%;
+}
+.box-vote::before {
+    background-image: url(/img/background/10.png);
+    margin-top: -8%;
+    height: 404px;
 }

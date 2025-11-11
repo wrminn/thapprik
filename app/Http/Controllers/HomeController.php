@@ -169,18 +169,12 @@ class HomeController extends Controller
         }
 
        
-        // echo "<pre>";
-        // print_r($Oil);
-        // exit();
-
         return view('home', compact('video', 'SlideMenu70', 'activity', 'listMenu52', 'SlideMenu8', 'egp', 'listMenu48', 'listMenu49', 'listMenu50', 'Vote', 'stats', 'elibrary','gold','Oil'));
     }
 
     public function save(Request $request)
     {
         $vote = $request->input('vote');
-
-        // บันทึกลง DB
 
         DB::table('vote')
             ->where('vote_id', $vote)

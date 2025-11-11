@@ -69,7 +69,8 @@
                             $year = $date->year + 543;
                         @endphp
 
-                        <div class="activity-title">{{ $list->texteditor_title }}</div>
+                        {{-- <div class="activity-title">{{ $list->texteditor_title }}</div> --}}
+                        <div class="activity-title">{!! \Illuminate\Support\Str::limit(trim(strip_tags($list->texteditor_title)), 20) !!}</div>
                         <div class="activity-detail">
                             {!! \Illuminate\Support\Str::limit(trim(strip_tags($list->texteditor_detail)), 40) !!}
 

@@ -466,3 +466,285 @@ div#bannerTrack-Press-release {
 }
 
 /* section 4*/
+
+/* section 5*/
+
+.public-service-box {
+    padding: 50px 620px 50px 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.public-service-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 1;
+}
+
+.public-service-th {
+    font-size: 70px;
+    font-weight: bolder;
+    color: #fff;
+}
+
+.public-service-en {
+    font-size: 37px;
+    color: #fff;
+    font-weight: bold;
+    margin-top: -9%;
+    margin-bottom: 20px;
+}
+
+.public-service-banner {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    z-index: 1;
+}
+
+/*egp*/
+
+.tab-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 50px;
+}
+
+.tab-buttons button {
+    padding: 10px 35px;
+    border: none;
+    border-radius: 25px;
+    background: #a28b98;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    text-align: justify;
+    font-size: 20px;
+    color: #fff;
+}
+
+.tab-buttons button.active {
+    background: #494247;
+    color: #fff;
+    text-shadow: 0px 0px 20px rgb(78 170 191);
+}
+
+.tab-content {
+    display: none;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.item {
+    display: flex;
+    gap: 10px;
+    padding: 20px 43px;
+    background: #f7b5d0;
+    height: 150px;
+    border-radius: 20px;
+    width: 745px;
+    flex-direction: column;
+    color: #000;
+    justify-content: center;
+}
+
+.item:last-child {
+    border-bottom: none;
+}
+
+.item-icon {
+    /* width: 40px;
+    height: 40px; */
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 45px;
+    color: #0b95d8;
+}
+
+.item-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+}
+
+.item-date {
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bolder;
+    color: #fff;
+    background: red;
+    padding: 4px;
+    width: 100px;
+    border-radius: 20px;
+}
+
+.topic-announce {
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+.announce-box {
+    margin-top: 30px;
+}
+
+.announce-body {
+    padding: 12px 150px 150px 150px;
+}
+
+.tab-buttons button::before {
+    content: "•";
+    color: #fff;
+    font-size: 40px;
+    position: absolute;
+    margin: -13px -20px;
+}
+
+.content-announce {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    overflow: hidden;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 580px;
+}
+
+.box-one-announce {
+    display: flex;
+    /* align-items: center; */
+    gap: 20px;
+}
+
+.tag-announce {
+    padding: 5px 25px;
+    background: #fff;
+    border-radius: 20px;
+}
+
+.item:hover {
+    background: linear-gradient(178deg, #f5799b, #f392d8);
+    color: #000;
+}
+
+.box-all-announce {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0;
+    position: relative;
+    padding: 0 90px;
+}
+
+.box-all-announce::before,
+.box-all-announce::after {
+    content: "";
+    flex: 1;
+    height: 3px;
+    background: #ddd;
+    /* สีเส้น */
+    margin: 0 10px;
+}
+
+.box-all-announce a {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    padding: 6px 16px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.box-all-announce a:hover {
+    background: #f5f5f5;
+}
+
+/*egp*/
+section.box-vote {
+    padding: 20px 215px;
+}
+
+.lav-t-480-1 {
+    margin-top: -10%;
+    font-size: 45px;
+    display: flex;
+    left: 4%;
+    position: relative;
+    font-weight: bolder;
+    color: #fff;
+}
+
+.vote {
+    padding: 80px 0;
+}
+
+.lav-480 {
+    color: #fff;
+    font-size: 35px;
+    font-weight: 500;
+}
+
+.text-vote {
+    color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 15px;
+    margin: 15px;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.text-vote label {
+    width: calc(35% - 30px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.text-vote input[type="radio"] {
+    transform: scale(1.5);
+    /* ขยายปุ่มวิทยุให้ดูเด่น */
+}
+
+.box-text-vote {
+    display: flex;
+    align-items: flex-end;
+}
+
+.bb-vote {
+    text-align: center;
+}
+
+.s-vote {
+    padding: 10px 25px;
+    background-color: #fff;
+    color: #000;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.s-vote:hover {
+    background-color: #0d47a1;
+}
+
+/* section 5*/
