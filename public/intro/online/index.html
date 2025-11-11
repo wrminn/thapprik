@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=1920">
+    
+    <title>Animated Cityscape</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+
+        .container {
+            position: relative;
+            width: 1920px;  /* 2. ล็อกความกว้างตายตัว */
+            height: 917px; /* 3. ล็อกความสูงตายตัว (1080p) */
+            overflow: hidden;
+            
+            /* 4. ล็อกความสูงน้ำเป็น Pixel (30% ของ 1080px คือ 324px) */
+            --water-h: 30%;
+        }
+
+        /* (ส่วน .img-layer, #bg-layer, #fireworks-canvas เหมือนเดิม) */
+        .img-layer{position:absolute;width:100%;height:100%;object-fit:cover;top:0;left:0;}
+        #bg-layer{z-index:1;}
+        #fireworks-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;}
+
+
+        #city-layer {
+            z-index: 3;
+            /* อ้างอิงจาก --water-h (324px) ที่ล็อกไว้ */
+            bottom: calc(var(--water-h)); 
+            top: auto;
+            height: auto;
+            width: 100%;
+            object-fit: contain;
+            object-position: bottom;
+        }
+
+        #water-container {
+            position: absolute;
+            z-index: 4;
+            bottom: 0;
+            top: auto;
+            left: 0;
+            height: var(--water-h); /* อ้างอิงจาก 324px */
+            width: 200%;
+            display: flex;
+            overflow: hidden;
+            animation: moveWater 30s linear infinite;
+        }
+
+        #water-container img {
+            width: 50%;
+            height: 100%;
+            object-fit: fill;
+            flex-shrink: 0;
+        }
+
+        @keyframes moveWater {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+
+        #kratong-container {
+            position: absolute;
+            z-index: 5;
+            left: 0;
+            bottom: calc(var(--water-h) * 0.45); /* อ้างอิงจาก 324px */
+            width: 200%;
+            height: calc(var(--water-h) * 0.5); /* อ้างอิงจาก 324px */
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .kratong{position:absolute;bottom:0;width:120px;height:auto;left:100vw;will-change:transform,left;}
+        .kratong-large{width:160px;z-index:6;}
+        .kratong-small{width:110px;z-index:5;opacity:0.95;}
+
+        /* 5. Keyframes - เปลี่ยน VW เป็น PX (1vw = 19.2px) */
+        @keyframes moveKratong {
+            0% { transform: translateX(0) translateY(0); opacity: 1; }
+            /* 60vw -> 1152px */
+            25% { transform: translateX(-1152px) translateY(-4px); } 
+            /* 110vw -> 2112px */
+            50% { transform: translateX(-2112px) translateY(4px); } 
+            /* 170vw -> 3264px */
+            75% { transform: translateX(-3264px) translateY(-2px); } 
+            /* 250vw -> 4800px */
+            100% { transform: translateX(-4800px) translateY(0); opacity: 0.95; } 
+        }
+
+        #light-layer{z-index:6;width:150px;height:150px;object-fit:contain;left:50%;top:50%;transform:translate(-50%,-50%);transition:transform 1.8s cubic-bezier(.22,.8,.2,1);pointer-events:none;}
+
+        .enter-site {
+            position: absolute;
+            left: 50%;
+            /* 6. แก้ bottom ให้อยู่เหนือน้ำ (น้ำสูง 324px) */
+            bottom: calc(var(--water-h) + -250px); /* วางด้านบนของปุ่มเหนือชั้นน้ำ 12px */
+            transform: translateX(-50%);
+            z-index: 7;
+            width: 320px;
+            height: auto;
+            cursor: pointer;
+            transition: transform .18s ease, opacity .18s ease;
+        }
+
+        .enter-site:focus, .enter-site:hover {
+            transform: translateX(-50%) scale(1.03);
+            opacity: 0.95;
+            outline: none;
+        }
+
+        .text-layer {
+            position: absolute;
+            top: 78px;
+            left: 358px;
+            width: auto;
+            height: auto;
+            /* 7. ล็อก max-width (33% ของ 1920px = 634px) */
+            max-width: 634px; 
+            z-index: 9;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-6px);
+            animation: fadeIn 1.6s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 8. CSS สำหรับหยุด Animation (จากครั้งก่อน) */
+        body.animations-paused #water-container,
+        body.animations-paused .kratong,
+        body.animations-paused .text-layer {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img id="bg-layer" class="img-layer" src="BG.png" alt="พื้นหลัง">
+        <canvas id="fireworks-canvas"></canvas>
+        <img id="city-layer" class="img-layer" src="City.png" alt="ตึก">
+
+        <div id="water-container" class="img-layer">
+            <img src="Water.png" alt="น้ำ">
+            <img src="Water.png" alt="น้ำ">
+        </div>
+
+        <div id="kratong-container" aria-hidden="true"></div>
+
+        <!-- <a href="#" class="enter-site" aria-label="เข้าสู่เว็บไซต์">
+            <img src="Enter-site.png" alt="เข้าสู่เว็บไซต์" style="width:100%;height:auto;display:block;border:0"> 
+        </a> -->
+        <img id="text-layer" class="text-layer" src="Text.png" alt="ข้อความ" aria-hidden="true">
+    </div>
+
+    <script>function generateImage(){console.log("กำลังสร้างภาพจากฉากปัจจุบัน...");}</script>
+    <script>(function(){const e=document.getElementById("fireworks-canvas");if(!e)return;const t=e.getContext("2d");function i(){const n=window.devicePixelRatio||1;e.width=Math.round(e.clientWidth*n),e.height=Math.round(e.clientHeight*n),t.setTransform(n,0,0,n,0,0)}e.style.width="100%",e.style.height="100%",window.addEventListener("resize",i),i();const n=[];function o(e,t){const i=18+Math.floor(18*Math.random()),o=30+330*Math.random();for(let r=0;r<i;r++){const a=(6.283185307179586*r)/i+(Math.random()-.5)*.4,s=1.6+2.2*Math.random();n.push({x:e,y:t,vx:Math.cos(a)*s,vy:Math.sin(a)*s-.6,life:60+40*Math.random(),age:0,hue:o+(Math.random()-.5)*25,size:1+2*Math.random()})}}let r=0;function a(t){if(t-r<600+1400*Math.random())return;r=t;const i=e.getBoundingClientRect(),n=i.width*(.35+.3*Math.random()),a=i.height*(.2+.35*Math.random());o(n,a)}function s(){for(let e=n.length-1;e>=0;e--){const t=n[e];t.vy+=.03,t.vx*=.995,t.vy*=.995,t.x+=t.vx,t.y+=t.vy,t.age++,t.age>t.life&&n.splice(e,1)}}function l(){const i=e.clientWidth,o=e.clientHeight;t.clearRect(0,0,i,o),t.globalCompositeOperation="lighter";for(const e of n){const i=1-(e.age/e.life);t.beginPath(),t.fillStyle=`hsla(${e.hue}, 90%, ${40+50*i}%, ${.9*i})`,t.arc(e.x,e.y,e.size*(1+(1-i)),0,6.283185307179586),t.fill()}t.globalCompositeOperation="source-over"}let c=performance.now();function d(e){const t=e-c;c=e,a(e),s(t),l(),requestAnimationFrame(d)}requestAnimationFrame(d),window.addEventListener("beforeunload",()=>{window.removeEventListener("resize",i)})})();</script>
+    
+<script>
+        (function() {
+            const container = document.getElementById('kratong-container');
+            if (!container) return;
+
+            function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+            const count = randInt(15, 20);
+            const duration = 70;
+            const spacing = 288; // (15vw * 19.2)
+            
+            for (let i = 0; i < count; i++) {
+                const img = document.createElement('img');
+                img.className = 'kratong';
+                img.src = Math.random() < 0.5 ? 'Kratong-1.png' : 'Kratong-2.png';
+                
+                if (Math.random() < 0.3) {
+                    img.classList.add('kratong-large');
+                } else if (Math.random() < 0.6) {
+                    img.classList.add('kratong-small');
+                }
+                
+                const randomBottom = (Math.random() - 0.3) * 70;
+                img.style.bottom = `${randomBottom}px`;
+
+                const startLeft = 2112; // (110vw * 19.2)
+                
+                img.style.left = (startLeft + i * spacing) + 'px';
+                
+                // --- V V V แก้ไขตรงนี้ ---
+                // จาก "moveKKratong" เป็น "moveKratong"
+                img.style.animation = `moveKratong ${duration}s linear infinite`;
+                // --- ^ ^ ^ แก้ไขตรงนี้ ---
+                
+                container.appendChild(img);
+            }
+        })();
+    </script>
+
+    <script>
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                document.body.classList.add('animations-paused');
+            } else {
+                document.body.classList.remove('animations-paused');
+            }
+        });
+    </script>
+
+</body>
+</html>

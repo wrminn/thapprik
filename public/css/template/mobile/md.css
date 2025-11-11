@@ -1,0 +1,24 @@
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .nav-strip {
+        width: 240px;
+    }
+
+    .nav-pill {
+        font-size: 16px;
+    }
+
+    .box-top {
+        padding: 50px 70px;
+    }
+
+    .header-title-th {
+        font-size: 15px;
+        font-weight: 800;
+    }
+
+    .header-title-en {
+        font-size: 10px;
+        margin-top: 0px;
+        font-weight: 500;
+    }
+}

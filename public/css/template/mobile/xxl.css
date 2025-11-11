@@ -1,0 +1,9 @@
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+    .nav-strip {
+        width: 270px;
+    }
+
+    .box-top {
+        padding: 50px 240px;
+    }
+}

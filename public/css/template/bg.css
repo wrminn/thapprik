@@ -1,0 +1,61 @@
+.py-4 {
+    padding: 0px !important;
+}
+
+.section1,
+.box-personnel,
+.box-video,
+.eservice-box,
+.notice-board,
+.activity-box,
+.Press-release {
+    position: relative;
+    /* overflow: hidden; */
+    margin-top: 0;
+}
+
+.section1::before,
+.box-personnel::before,
+.box-video::before,
+.eservice-box::before,
+.notice-board::before,
+.activity-box::before ,
+.Press-release::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.section1::before {
+    background-image: url("/img/background/01.png");
+}
+
+.box-personnel::before {
+    background-image: url("/img/background/02.png");
+}
+
+.box-video::before {
+    background-image: url("/img/background/03.png");
+}
+
+.eservice-box::before {
+    background-image: url("/img/background/04.png");
+}
+
+.notice-board::before {
+    background-image: url("/img/background/05.png");
+}
+
+.activity-box::before {
+    background-image: url("/img/background/06.png");
+}
+.Press-release::before {
+    background-image: url("/img/background/07.png");
+}

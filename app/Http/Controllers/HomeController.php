@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
+
 
 use App\Models\Slide;
 use App\Models\Texteditor;
@@ -65,7 +67,7 @@ class HomeController extends Controller
             ->where('texteditor.texteditor_display', '=', 'A')
             ->orderBy('texteditor.texteditor_date_show', 'desc')
             ->orderBy('texteditor.texteditor_id', 'desc')
-            ->limit(6)
+            ->limit(2)
             ->get();
 
 
@@ -153,7 +155,25 @@ class HomeController extends Controller
             'total' => DB::table('visits')->count(),
         ];
 
-        return view('home', compact('video', 'SlideMenu70', 'activity', 'listMenu52', 'SlideMenu8', 'egp', 'listMenu48', 'listMenu49', 'listMenu50', 'Vote', 'stats', 'elibrary'));
+        try {
+            $gold = $this->getLatestGold();
+            
+        } catch (\Exception $e) {
+            $gold = $e->getMessage();
+        }
+        try {
+            $Oil = $this->getLatestOil();
+            
+        } catch (\Exception $e) {
+            $Oil = $e->getMessage();
+        }
+
+       
+        // echo "<pre>";
+        // print_r($Oil);
+        // exit();
+
+        return view('home', compact('video', 'SlideMenu70', 'activity', 'listMenu52', 'SlideMenu8', 'egp', 'listMenu48', 'listMenu49', 'listMenu50', 'Vote', 'stats', 'elibrary','gold','Oil'));
     }
 
     public function save(Request $request)
@@ -196,5 +216,27 @@ class HomeController extends Controller
                 ->where('visits_visited_at', '>=', $now->subMinutes(5))
                 ->count(),
         ]);
+    }
+
+    public function getLatestGold()
+    {
+        $response = Http::get("https://api.chnwt.dev/thai-gold-api/latest");
+
+        if ($response->successful() && $response->json('status') === 'success') {
+            return $response->json('response');
+        }
+
+        throw new \Exception('Cannot fetch gold price');
+    }
+
+    public function getLatestOil()
+    {
+        $response = Http::get("https://api.chnwt.dev/thai-oil-api/latest");
+
+        if ($response->successful() && $response->json('status') === 'success') {
+            return $response->json('response');
+        }
+
+        throw new \Exception('Cannot fetch oil price');
     }
 }

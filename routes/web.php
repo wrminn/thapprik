@@ -31,10 +31,12 @@ use App\Http\Controllers\PublicRelations\PublicBackendController;
 use App\Http\Controllers\PublicRelations\PublicDataController;
 
 
+use Illuminate\Support\Facades\Http;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 Auth::routes();
 
